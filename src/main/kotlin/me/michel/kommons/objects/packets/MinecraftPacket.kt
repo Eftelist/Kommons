@@ -1,16 +1,17 @@
 package me.michel.kommons.objects.packets
 
-import net.minecraft.server.v1_12_R1.Packet
-import net.minecraft.server.v1_12_R1.PacketListener
+import com.comphenix.protocol.ProtocolLibrary
+import com.comphenix.protocol.ProtocolManager
+import com.comphenix.protocol.events.PacketContainer
 import org.bukkit.Bukkit
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer
 import org.bukkit.entity.Player
 
-data class MinecraftPacket(val mineraftPacket: Packet<PacketListener>, var listen: Boolean = true) {
+data class MinecraftPacket(val mineraftPacket: PacketContainer, var listen: Boolean = true) {
+
+    private var manager: ProtocolManager = ProtocolLibrary.getProtocolManager()
 
     fun send(player: Player) {
-        val cp = player as CraftPlayer
-        cp.handle.playerConnection.sendPacket(mineraftPacket)
+        manager.sendServerPacket(player, mineraftPacket)
     }
 
     fun sendToOnline() {

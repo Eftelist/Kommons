@@ -31,7 +31,7 @@ data class Point3D(var x:Double,var y:Double, var z:Double){
     }
 
     fun toVectorString(): String {
-        return "-v $x $y $z"
+        return "v $x $y $z"
     }
 
     override fun toString(): String {
